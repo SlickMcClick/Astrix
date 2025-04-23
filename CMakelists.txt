@@ -1,0 +1,24 @@
+cmake_minimum_required(VERSION 4.0.0)
+
+project(astrix)
+
+set(CMAKE_C_STANDARD 17)
+set(CMAKE_CXX_STANDARD 23)
+set(CMAKE_C_STANDARD_REQUIRED ON)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
+
+set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
+set(CMAKE_INTERPROCEDURAL_OPTIMIZATION TRUE)
+
+file(GLOB_RECURSE GAME_SOURCES CONFIGURE_DEPENDS "${CMAKE_CURRENT_SOURCE_DIR}/game/src/*.cpp")
+file(GLOB_RECURSE PLATFORM_SOURCES CONFIGURE_DEPENDS "${CMAKE_CURRENT_SOURCE_DIR}/platform/src/*.cpp")
+
+add_subdirectory(vendored/SDL3 EXCLUDE_FROM_ALL)
+
+add_executable(astrix ${GAME_SOURCES} ${PLATFORM_SOURCES})
+
+target_sources(astrix PRIVATE ${GAME_SOURCES})
+
+target_include_directories(astrix PUBLIC "${CMAKE_CURRENT_SOURCE_DIR}/game/include" "${CMAKE_CURRENT_SOURCE_DIR}/platform/include")
+
+target_link_libraries(astrix PRIVATE SDL3::SDL3)

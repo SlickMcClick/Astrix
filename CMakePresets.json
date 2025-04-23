@@ -1,0 +1,55 @@
+{
+    "version": 10,
+    "$schema": "https://cmake.org/cmake/help/latest/_downloads/3e2d73bff478d88a7de0de736ba5e361/schema.json",
+    "cmakeMinimumRequired": {
+        "major": 4,
+        "minor": 0,
+        "patch": 0
+    },
+    "$comment": "CMakePresets for Astrix",
+    "configurePresets": [
+        {
+            "name": "debug",
+            "displayName": "Debug",
+            "binaryDir": "${sourceDir}/build/debug",
+            "generator": "Ninja",
+            "cacheVariables": {
+                "CMAKE_BUILD_TYPE": "Debug",
+                "CMAKE_EXPORT_COMPILE_COMMANDS": "ON",
+                "CMAKE_CXX_FLAGS": "-Wall -Wextra -Wpedantic -Werror -O0",
+                "CMAKE_C_COMPILER": "clang",
+                "CMAKE_CXX_COMPILER": "clang++",
+                "CMAKE_RUNTIME_OUTPUT_DIRECTORY": "${sourceDir}/bin/${presetName}/",
+                "CMAKE_LIBRARY_OUTPUT_DIRECTORY": "${sourceDir}/bin/${presetName}/",
+                "CMAKE_ARCHIVE_OUTPUT_DIRECTORY": "${sourceDir}/lib/${presetName}/"
+            }
+        },
+        {
+            "name": "release",
+            "displayName": "Release",
+            "binaryDir": "${sourceDir}/build/release",
+            "generator": "Ninja",
+            "cacheVariables": {
+                "CMAKE_BUILD_TYPE": "Release",
+                "CMAKE_CXX_FLAGS": "-Wall -Wextra -Wpedantic -march=haswell -flto -O4",
+                "CMAKE_C_COMPILER": "clang",
+                "CMAKE_CXX_COMPILER": "clang++",
+                "CMAKE_RUNTIME_OUTPUT_DIRECTORY": "${sourceDir}/bin/${presetName}/",
+                "CMAKE_LIBRARY_OUTPUT_DIRECTORY": "${sourceDir}/bin/${presetName}/",
+                "CMAKE_ARCHIVE_OUTPUT_DIRECTORY": "${sourceDir}/lib/${presetName}/"
+            }
+        }
+    ],
+    "buildPresets": [
+        {
+            "name": "build_debug",
+            "displayName": "Debug Build",
+            "configurePreset": "debug"
+        },
+        {
+            "name": "build_release",
+            "displayName": "Release Build",
+            "configurePreset": "release"
+        }
+    ]
+}
